@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chapter-7</title>
+
+    <style>
+        body {
+            background-color: #000;
+            color: aliceblue;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form{
+            width: 400px;
+            border: 1px solid grey;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <form action="#" method="post">
+        
+        <label for="number">Number</label>
+        <input type="number" name="" id="number" placeholder="Enter number"><br>
+        
+        <label for="password">Password</label>
+        <input 
+        type="password"
+        name="password"
+        id="password" 
+        pattern="[0-9]{8}"
+        ><br>
+
+        <label for="additionalComment"></label>
+        <textarea name="additionalComment" id="additionalComment">Additional Comments</textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
