@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chapter-4</title>
+    <style>
+        body {
+            background-color: #212121;
+            color: aliceblue;
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            height: 500px;
+            width: 500px;
+            background-color: cadetblue;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav{
+            background-color: darkcyan;
+            display: flex;
+            padding: 10px 20px;
+        }
+
+        ul{
+            display: flex;
+            align-items: center;
+            /* justify-content: center; */
+            gap: 90px;
+            width: 100%;
+            margin-left: 50px;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>Home</li>
+            <li>Services</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+
+    <p><a href="https://google.com" target="_blank">Google</a></p>
+    <a href="#section-1">goto Section One</a>
+    <section  id="section-1">SECTION</section>
+    <a href="https://google.com" target="_blank">Open google in New Tab</a>
+    <a href="./image.png" download="imageOne" target="_blank">Download image</a>
+
+</body>
+</html>
