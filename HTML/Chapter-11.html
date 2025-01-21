@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chapter-11</title>
+    <style>
+        body {
+            background: #000;
+            color: aliceblue;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            padding: 20px;
+            /* border: 1px solid grey; */
+            background: #4d4b4b;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 4px 6px;
+            margin-bottom: 10px;
+            width: 100%;
+            background-color: #6c6a6a;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+        <form action="#" method="post">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" placeholder="Enter your name">
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="email" placeholder="Enter your email" required>
+            </div>
+
+            <div>
+                <label for="DOB">DOB</label>
+                <input type="date" name="DOB" id="DOB">
+            </div>
+
+            <div>
+                <label for="color">Color</label>
+                <input type="color" name="color" id="color">
+            </div>
+        </form>
+
+</body>
+</html>
