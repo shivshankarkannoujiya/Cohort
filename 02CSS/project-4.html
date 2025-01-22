@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pseudo elements</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body,html {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            column-rule: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: aliceblue;
+        }
+
+        h1::first-line {
+            color: red;
+        }
+
+        h1::first-letter {
+            font-size: 120px;
+        }
+
+        h1::selection {
+            color: goldenrod;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, voluptas eveniet, voluptatem repellendus nulla est sit, distinctio quam laborum impedit dolores. Quos, saepe! Dignissimos quam nihil dolore natus nostrum perspiciatis, adipisci porro in magnam quia totam a laboriosam voluptates? Temporibus nostrum asperiores quod cumque reiciendis odio, rem in obcaecati aliquam ab voluptas a distinctio praesentium, ullam accusantium omnis suscipit blanditiis labore porro voluptates dicta. Assumenda, porro, dolorum at repellat, quis soluta quas nulla dolor pariatur ad fugiat! Error repellendus quibusdam expedita eaque, cumque tempora soluta quo dicta, corporis, nostrum ratione itaque sint? Facilis cum, magnam iusto asperiores voluptate sunt consequatur.</h1>
+</body>
+</html>
