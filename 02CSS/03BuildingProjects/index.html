@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaicodewebsite</title>
+</head>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,body {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container{
+            height: 100%;
+            width: 100%;
+            /* background: #000; */
+            /* color: #fff; */
+        }
+
+        nav {
+            background-color: rgb(30, 46, 47);
+            color: aliceblue;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 20px 80px;
+            border-bottom: 0.5px solid rgb(86, 88, 90);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 80px;
+            cursor: pointer;
+        }
+
+        nav ul li {
+            font-size: 1rem;
+        }
+
+        nav div button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.5s ease-out;
+        }
+
+        nav div button:hover {
+            background-color: rgb(64, 82, 83);
+            color: aliceblue;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            background-color: rgb(30, 46, 47);
+            padding: 40px 80px;
+        }
+
+        .hero div {
+            width: 50%;
+            margin: 20px;
+        }
+
+        .hero div h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: aliceblue;
+        }
+
+        .hero div p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: rgb(214, 208, 208);
+        }
+
+        .hero div button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            width: 20%;
+            cursor: pointer;
+        }
+        
+        .hero div button:hover {
+            background-color: rgb(64, 82, 83);
+            color: aliceblue;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .hero div img {
+            width: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 0 10px white;
+        }
+
+        .hero div img:hover {
+            transform: rotate(10deg);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .logo-text {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2rem;
+            color: black;
+        }
+        
+
+        .logo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 40px 80px;
+            margin: 40px 80px;
+            border: 2px solid #000;
+            box-shadow: 0 0 5px #000;
+        }
+
+        .logo div img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            object-position: center;
+            border: 5px;
+        }
+
+        .three-card {
+            margin: 40px 80px;
+            padding: 40px 80px;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 0 5px #000;
+        }
+
+        .card {
+            border: 2px solid #000;
+            width: 30%;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 0 5px #000;
+        }
+
+        .card img {
+            width: 90%;
+            object-fit: cover;
+            object-position: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card h3 {
+            margin-top: 15px;
+        }
+        .card p {
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-bottom: 0;
+        }
+
+    </style>
+<body>
+
+    <div class="container">
+
+        <nav>
+            <div>
+                <h1>Chaicode</h1>
+            </div>
+            <div>
+                <ul>
+                    <li>Home</li>
+                    <li>About Us</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div>
+                <button>Signup</button>
+                <button>Login</button>
+            </div>
+        </nav>
+
+        <section class="hero">
+
+            <div>
+                <h1>Chai Code</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus eos molestiae odio dolorem repudiandae placeat, pariatur amet id necessitatibus! Quia fugiat perspiciatis nobis esse consequatur ipsam porro, commodi ipsa. Sint.</p>
+                <button>Signup</button>
+            </div>
+
+            <div>
+                <img 
+                 src="https://images.pexels.com/photos/18681382/pexels-photo-18681382/free-photo-of-coding.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="loading image ...">
+            </div>
+
+        </section>
+
+        <h2 class="logo-text">Our Clients</h2>
+        <section class="logo">
+            <div>
+                <img src="https://images.pexels.com/photos/12877878/pexels-photo-12877878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/104372/pexels-photo-104372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/15863044/pexels-photo-15863044/free-photo-of-openai-text-on-tv-screen.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/17614475/pexels-photo-17614475/free-photo-of-close-up-of-a-man-holding-a-smartphone-displaying-the-logo-of-the-threads-app.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/11459428/pexels-photo-11459428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+            </div>
+        </section>
+
+        <section class="three-card">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/18419702/pexels-photo-18419702/free-photo-of-pouring-coffee-to-glass-cup-of-water.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+                <h3>Card Title</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, at. Obcaecati ullam tenetur, temporibus accusamus alias laboriosam libero maxime dignissimos.</p>
+            </div>
+
+            <div class="card">
+                <img src="https://images.pexels.com/photos/3641659/pexels-photo-3641659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+                <h3>Card Title</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, at. Obcaecati ullam tenetur, temporibus accusamus alias laboriosam libero maxime dignissimos.</p>
+            </div>
+
+            <div class="card">
+                <img src="https://images.pexels.com/photos/2873373/pexels-photo-2873373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+                <h3>Card Title</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, at. Obcaecati ullam tenetur, temporibus accusamus alias laboriosam libero maxime dignissimos.</p>
+            </div>
+
+        </section>
+
+        <footer>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1E2E2F" fill-opacity="1" d="M0,192L40,208C80,224,160,256,240,229.3C320,203,400,117,480,96C560,75,640,117,720,154.7C800,192,880,224,960,208C1040,192,1120,128,1200,101.3C1280,75,1360,85,1400,90.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
+        </footer>
+
+    </div>
+
+</body>
+</html>
