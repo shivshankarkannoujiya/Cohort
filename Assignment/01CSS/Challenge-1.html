@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero section</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /* #6146eb */
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,Ubuntu, Cantarell, sans-serif;
+            color: white;
+            background-color: #0a0a0a;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            background-color: #140e1e;
+            color: aliceblue;
+            padding: 10% 20%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .announcement {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70px;           
+        }
+        
+        .content {
+            padding: 15px 40px;
+            border: 1px solid #4e4949;
+            border-radius: 30px;
+            font-size: 1rem;
+            background-color: #1f1a29;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .announcement-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 40px;
+            text-align: center;
+        }
+
+
+        .hero-title {
+            font-size: 4rem;
+            align-content: center;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1rem;
+            color: #fff;
+            background: linear-gradient(90deg,  #5d5fef, #a349f2);
+            border-radius: 30px;
+            transition: 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        i {
+            font-size: 2rem;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="container">
+        <div class="announcement">
+            <span class="content">New Features available now.
+                <i class="ri-arrow-drop-right-line"></i>
+            </span>
+        </div>
+        <div class="announcement-content">
+            <h1 class="hero-title">Now it's easier than ever to <br>build products</h1>
+            <p class="hero-description">
+                Create stunning websites and applications with our modern design
+				system. Fast, flexible, and beautiful by default.
+            </p>
+            <button class="btn">Get started
+                <i class="ri-arrow-drop-right-line"></i>
+            </button>
+        </div>
+    </section>
+</body>
+</html>
