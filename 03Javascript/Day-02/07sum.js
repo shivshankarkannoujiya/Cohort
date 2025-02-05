@@ -11,3 +11,4 @@ function sumFactory(numbers) {
 
 const sumOfNumbers = sumFactory(arr);
 console.log(`Sum is: ${sumOfNumbers}`);
+console.log(sumFactory([8,8,8,8,8]));
