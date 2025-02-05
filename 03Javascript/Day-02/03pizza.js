@@ -9,4 +9,7 @@ if (numberOfGuests <= 2) {
     pizzaSize = "large"
 }
 
-console.log(`pizzaSize: ${ pizzaSize }`);
+console.log(`pizzaSize: ${pizzaSize}`);
+
+
+// Internally if-else works on `GREEDY ALGORITHM`
