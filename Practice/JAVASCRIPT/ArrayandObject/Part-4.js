@@ -24,6 +24,9 @@ console.log(arr.includes(NaN)); // true
 console.log(arr.includes(10));
 console.log(arr.includes(5, -3));
 
+console.log(arr.includes(5, -1000)); // search reset to => 0 index
+
+
 
 
 
