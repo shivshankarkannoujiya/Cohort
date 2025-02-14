@@ -26,6 +26,13 @@ console.log(arr.includes(5, -3));
 
 console.log(arr.includes(5, -1000)); // search reset to => 0 index
 
+// Fails
+// const people = [
+//     { name: "John", age: 30 },
+//     { name: "Jane", age: 25 },
+//     { name: "Bob", age: 35 }
+// ];
+// console.log(people.indexOf({ name: "John", age: 30 }));
 
 
 
