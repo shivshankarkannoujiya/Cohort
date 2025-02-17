@@ -22,5 +22,18 @@ function chnageBackgroundColor(color) {
 // Solution: Use Event Listeners
 
 
+const darkButton = document.getElementById('theme-btn')
+darkButton.addEventListener('click', function () {
+    console.log(`I got Clicked`)
+    chnageBackgroundColor(`#1a1a1a`)
+})
+
+/*
+    In future the `New Developer` can put another `eventlisters` on the same button
+*/
+darkButton.addEventListener('click', function () {
+    console.log(`Something New Added by another developer on same button`)
+})
+
 
 
