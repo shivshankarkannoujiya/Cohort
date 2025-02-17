@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <button 
+        class="theme-btn"
+        style="
+            padding: 10px 17px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            "
+        onclick="chnageBackgroundColor(`#1a1a1a`)"
+    >Change BG Black</button>
+
+    <button 
+        class="theme-btn"
+        style="
+            padding: 10px 17px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            "
+        onclick="chnageBackgroundColor(`#fff`)"
+    >Change BG White</button>
+
+    <script src="./script.js"></script>
+</body>
+</html>
