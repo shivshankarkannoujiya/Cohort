@@ -10,7 +10,7 @@
 body, html {
     height: 100vh;
     width: 100vw;
-    background-color:  #78ABB1;
+    background: linear-gradient(180deg, #93A5CF, #E4EfE9);
     font-family: "Poppins", serif;
 }
 
@@ -24,7 +24,6 @@ body, html {
 
 #reviewCard {
     width: 40%;
-    /* border: 2px solid red; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,7 +32,7 @@ body, html {
 
 
 #review {
-    position: relative;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,10 +40,9 @@ body, html {
     gap: 20px;
     width: 500px;
     padding: 2rem;
-    background-color: #122b2e;
-    border: 1px solid #7ca9ad;
-    border-radius: 10px;
-    box-shadow: 15px 35px 35px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #15202B, #1E2A38);
+    border-radius: 12px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
     transform-style: preserve-3d ;
 }
 
@@ -78,28 +76,28 @@ body, html {
 }
 
 #submitReviewBtn {
-    width: 100%;
+    width: 92%;
     padding: 1rem;
     border: none;
     border-radius: 15px;
-    background-color: #2a4f53;
+    background: linear-gradient(135deg, #009688, #00695C);
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
 }
 
 #submitReviewBtn:hover{
-    background-color: #35696f;
     transform: translateY(-2px);
+    background: linear-gradient(135deg, #00695C, #009688);
     box-shadow: 0 8px 15px rgba(13, 196, 242, 0.3);
+    
 }
 
 #reviewContainer {
     padding: 40px;
     width: 60%;
-    /* border: 1px solid yellow; */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -108,7 +106,6 @@ body, html {
 }
 
 .card {
-    /* border: 1px solid red; */
     width: calc(50% - 20px);
     max-width: 400px;
     padding: 20px;
@@ -119,12 +116,11 @@ body, html {
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
-    background-color: #225c63;
-    border: 1px solid #6a8f94;
+    background: linear-gradient(135deg, #134E5E, #2A7886);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
     color: #fff;
-    box-shadow: 15px 35px 35px rgba(0, 0, 0, 0.5);
     transform-style: preserve-3d ;
-    transition: all 0.3s ease;
 }
 
 .card:hover{
@@ -134,6 +130,7 @@ body, html {
 
 .card p {
     color: #f6f0f0;
+    font-size: 16px;
 }
 
 .card h2 {
