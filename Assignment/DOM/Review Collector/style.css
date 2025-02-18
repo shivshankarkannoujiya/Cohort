@@ -43,7 +43,7 @@ body, html {
     background: linear-gradient(135deg, #15202B, #1E2A38);
     border-radius: 12px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-    transform-style: preserve-3d ;
+    transform-style: preserve-3d;
 }
 
 #review h1 {
@@ -61,7 +61,7 @@ body, html {
     resize: none;
     margin: 1rem 0;
     transition: all 0.3s ease;
-    background-color: #485460;
+    background-color: #263240;
     color: #fff;
 }
 
