@@ -12,18 +12,20 @@ submitButton.addEventListener('click', function () {
 
     const newReview = {
         id: Date.now(),
+        heading: `Client Review`,
         text: textAreaValue,
         date: new Date().toISOString()
     }
 
-    reviews.push(newReview)
+    reviews.push(newReview);
+    saveReview();
     console.log(reviews);
 
     const reviewCard = document.createElement('div');
     reviewCard.classList.add('card');
 
     const h2 = document.createElement('h2');
-    h2.textContent = `Client Review`;
+    h2.textContent = newReview.heading;
 
     const reviewText = document.createElement('p');
     reviewText.textContent = newReview.text;
@@ -35,3 +37,11 @@ submitButton.addEventListener('click', function () {
     
     textArea.value = ''
 })
+
+function renderReview(review) {
+    console.log(review)
+}
+
+function saveReview() {
+    localStorage.setItem("review", JSON.stringify(reviews));
+}
