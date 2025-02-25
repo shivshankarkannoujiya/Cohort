@@ -1,0 +1,91 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+    background-color: #051123; 
+    color: #fff;
+    background-image: radial-gradient(white 5%, transparent 10%);
+    background-size: 20px 20px;
+    border: 2px solid gold;
+}
+
+.reviewContainer {
+    border: 1px solid red;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-input {
+    border: 2px solid yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 500px;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.15), 
+            0px 10px 30px rgba(0, 0, 0, 0.7);
+    transform-style: preserve-3d;
+}
+
+.review-input h2 {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+#textBox {
+    width: 92%;
+    height: 100px;
+    padding: 16px;
+    border: 2px solid #717a84;
+    border-radius: 12px;
+    font-size: 14px;
+    resize: none;
+    transition: all 0.3s ease;
+    background-color: #263240;
+    color: #fff;
+}
+
+#textBox:focus{
+    outline: none;
+    border-color: #97a8bc;
+    box-shadow: 0 0 10px rgba(78, 205, 196, 0.2);
+}
+
+#textBox::placeholder{
+    color: #fff;
+}
+
+.star-rating {
+    /* border: 1px solid red; */
+    padding: 5px;
+    margin: 10px 0;
+
+}
+
+.star {
+    /* border: 1px solid gold; */
+    padding: 2px 10px;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+}
+
+.star:hover{
+    color: #FFDF00;
+}
