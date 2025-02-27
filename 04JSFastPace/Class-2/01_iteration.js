@@ -29,7 +29,21 @@ const pendingSortedTasks = tasks
     .filter((task) => !task.completed)
     .sort((a, b) => a.priority - b.priority )
 
-console.log(pendingSortedTasks);
+
+const movieRatings = [
+    { title: "Movie A", ratings: [4, 5, 3] },
+    { title: "Movie B", ratings: [5, 5, 4] },
+    { title: "Movie C", ratings: [3, 4, 2] },
+];
+
+const averageMovieRating = movieRatings.map((movie) => {
+    const totalRating = movie.ratings.reduce((sum, rating) => sum + rating, 0)
+    const averageRating = totalRating / movie.ratings.length
+    return {
+        title: movie.title,
+        ratings: averageRating.toFixed(1)
+    }
+})
 
 
 
