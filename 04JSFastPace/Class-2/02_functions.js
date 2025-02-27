@@ -50,6 +50,7 @@ const person2 = {
 */
 
 person1.greet.call(person2)
+person1.greet.call({name: "Raj"})
 // person1.greet.bind(person2)() or
 const bindGreet = person1.greet.bind(person2)
 // console.log(bindGreet);
