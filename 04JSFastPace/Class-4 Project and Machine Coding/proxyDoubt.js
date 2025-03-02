@@ -15,6 +15,10 @@ function enableNegativeIndexing(targetArr) {
 
 const ProxiedArray = enableNegativeIndexing(arr);
 
+// TODO: Prevent the Changes in `Original Array`
+// Pass new Array using Spread operator
+const ProxiedArray2 = enableNegativeIndexing([...arr]);
+
 console.log('Original Array: ', arr)
 console.log('Proxied Array: ', ProxiedArray)
 
@@ -31,4 +35,8 @@ console.log('Proxied Array: ', ProxiedArray)
     4. set,get => ke andar `target` hai wo: `Address of: Original Arr`
     5. SO we are also playing with `Original Array`
     6. That is the reason `Changes Occured in Original Array`
+
+    TODO: Prevent the Changes in `Original Array`
+    Pass new Array using Spread operator
+    const ProxiedArray2 = enableNegativeIndexing([...arr]);
 */
