@@ -29,6 +29,21 @@ if (!Array.prototype.myReduceV2) {
     }
 }
 
+if (!Array.prototype.myReduceV3) {
+    Array.prototype.myReduceV3 = function (callback, initialValue = undefined) {
+
+        // let accumulator = initialValue ?? this[0]
+        // let accumulator = initialValue ? initialValue : this[0]
+        let accumulator = initialValue || this[0]
+        let startIndex = initialValue ? 0 : 1
+
+        for (let i = startIndex; i < this.length; i++){
+            accumulator = callback(accumulator, this[i])
+        }
+        return accumulator
+    }
+}
+
 const arr = [1, 2, 3, 4, 5]
-const total = arr.myReduceV2((acc, currVal) => acc + currVal, 3)
+const total = arr.myReduceV3((acc, currVal) => acc + currVal, 3)
 console.log(total);
