@@ -30,16 +30,14 @@ app.get("/", (req, res) => {
     res.send("Cohort!")
 })
 
-// user routes
-app.use("/api/v1/users", userRoutes)
 
 // connect to db
 db()
-    .then(() => {
-        app.listen(port, () => {
-            console.log(`app is listening on port: ${port}`)
-        })
-    })
-    .catch((err) => {
-        console.log(`MONGODB Connection Err: `, err)
-    })
+
+
+// user routes
+app.use("/api/v1/users", userRoutes)
+
+app.listen(port, () => {
+    console.log(`app is listening on port: ${port}`)
+})
