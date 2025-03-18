@@ -206,4 +206,87 @@ const loginUser = async (req, res) => {
     }
 };
 
-export { registerUser, verifyUser, loginUser };
+const getMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select("-password");
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            message: "User data fetched successfully",
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.log("Fetching user data failure: ", error);
+        res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
+    }
+};
+
+const logoutUser = async (req, res) => {
+    res.cookie("token", null, {});
+    res.status(200).json({
+        message: "Logged Out successfully",
+        success: true,
+    });
+};
+
+const forgotPassword = async (req, res) => {
+
+    /*
+        1. get email
+        2. find user based on email
+        3. SET: reset token + reset expiry (  Date.now() + 10 * 60 * 1000 )
+        4. Save user < user.save() >
+        5. send Mail => with url
+    
+    */
+    
+};
+
+
+const resetPassword = async (req, res) => {
+
+    /*
+        1. Collect token from params
+        2. password from req.body
+        3. find user
+    */
+    
+    const { token } = req.params;
+    const { password } = req.body
+
+    try {
+        
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordTokenExpires: {$gt: Date.now()}
+        })
+
+        /*
+            set password in user
+            resetToken, resetExpiry => reset(empty)
+            save user
+        */
+
+    } catch (error) {
+        
+    }
+};
+
+export {
+    registerUser,
+    verifyUser,
+    loginUser,
+    getMe,
+    logoutUser,
+    forgotPassword,
+    resetPassword,
+};
