@@ -76,4 +76,43 @@ const registerUser = async (req, res) => {
     }
 };
 
-export { registerUser };
+const verifyUser = async (req, res) => {
+    const { token } = req.params;
+    console.log("TOKEN from Param: ", token);
+
+    try {
+        if (!token) {
+            return res.status(404).json({
+                success: false,
+                message: `Invalid token`,
+            });
+        }
+
+        const user = await User.findOne({ verificationToken: token });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: `Invalid token`,
+            });
+        }
+
+        user.isVarified = true;
+        user.verificationToken = undefined;
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: `User verified successfully`,
+        });
+    } catch (error) {
+        console.log(`Error while verifying User: `, error);
+        res.status(500).json({
+            success: false,
+            error: error,
+            message: `Internal server error`,
+        });
+    }
+};
+
+
+export { registerUser, verifyUser };
