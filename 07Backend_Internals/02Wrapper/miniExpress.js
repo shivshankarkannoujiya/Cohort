@@ -39,7 +39,7 @@ function cohortJS() {
         if (req.method === "POST") {
 
             let body = "";
-            req.on("data", (chunjk) => {
+            req.on("data", (chunk) => {
                 body+=chunk
             })
 
