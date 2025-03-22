@@ -308,11 +308,92 @@ const getMe = async (req, res) => {
     }
 };
 
+const changeCurrentPassword = async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+        return res.status(401).json({
+            success: false,
+            message: `All fields are required`,
+        });
+    }
+
+    try {
+        const user = await User.findById(req.user?._id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: `User doest not exist`,
+            });
+        }
+
+        const isPasswordValid = await user.isPasswordCorrect(oldPassword);
+        if (!isPasswordValid) {
+            return res.status(400).json({
+                success: false,
+                message: `Invalid old password`,
+            });
+        }
+
+        user.password = newPassword;
+        await user.save({ validateBeforeSave: false });
+
+        res.status(200).json({
+            success: true,
+            message: `Password changed successfully`,
+        });
+    } catch (error) {
+        console.log(`Error while changing password: `, error);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            message: `Internal server error`,
+        });
+    }
+};
+
+const updateAccoutDetails = async (req, res) => {
+    const { username, email } = req.body;
+    if (!username || !email) {
+        return res.status(401).json({
+            success: false,
+            message: `All fields are required`,
+        });
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.user?._id,
+            {
+                $set: {
+                    username,
+                    email,
+                },
+            },
+            { new: true }
+        ).select("-password");
+
+        res.status(200).json({
+            success: true,
+            user,
+            message: `user account details updated successfully`,
+        });
+    } catch (error) {
+        console.log(`Error while updating account details: `, error);
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            message: `Internal server error`,
+        });
+    }
+};
+
 export {
     registerUser,
     verifyUser,
     loginUser,
     logoutUser,
     getMe,
-    refreshAccessToken
+    refreshAccessToken,
+    changeCurrentPassword,
+    updateAccoutDetails,
 };
