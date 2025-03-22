@@ -3,6 +3,7 @@ import {
     getMe,
     loginUser,
     logoutUser,
+    refreshAccessToken,
     registerUser,
     verifyUser,
 } from "../controllers/user.controller.js";
@@ -17,5 +18,6 @@ router.route("/login").post(loginUser);
 // secured route
 router.route("/logout").get(isLoggedIn, logoutUser);
 router.route("/me").get(isLoggedIn, getMe);
+router.route("/refresh-token").get(refreshAccessToken);
 
 export default router;

@@ -2,6 +2,7 @@ import { User } from "../models/User.model.js";
 import { generateAccessAndRefreshToken } from "../utils/generateTokens.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 const registerUser = async (req, res) => {
     /*
@@ -230,6 +231,58 @@ const logoutUser = async (req, res) => {
     }
 };
 
+const refreshAccessToken = async (req, res) => {
+    try {
+        const incommingRefreshToken = req.cookies?.refreshToken || req.body.refreshToken;
+        if (!incommingRefreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: `unauthorized access`,
+            });
+        }
+
+        const decodedToken = jwt.verify(incommingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        const user = await User.findById(decodedToken?.id);
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: `Invalid refresh token`,
+            });
+        }
+
+        if (incommingRefreshToken !== user?.refreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: `refresh token is expired or used`,
+            });
+        }
+
+        const { accessToken, newrefreshToken } = await generateAccessAndRefreshToken(user._id);
+
+        const cookieOptions = {
+            httpOnly: true,
+            secure: true,
+        };
+
+        res.status(200)
+            .cookie("accessToken", accessToken, cookieOptions)
+            .cookie("refreshToken", newrefreshToken, cookieOptions)
+            .json({
+                success: true,
+                accessToken: accessToken,
+                message: `access token refreshed successfully`,
+            });
+    } catch (error) {
+        console.log(`Error while refreshing access token: `, error);
+        res.status(500).json({
+            success: false,
+            error: error,
+            message: `Internal server error`,
+        });
+    }
+};
+
 const getMe = async (req, res) => {
     try {
         const user = await User.findById(req.user?._id).select("-password -refreshToken");
@@ -255,5 +308,11 @@ const getMe = async (req, res) => {
     }
 };
 
-
-export { registerUser, verifyUser, loginUser, logoutUser, getMe };
+export {
+    registerUser,
+    verifyUser,
+    loginUser,
+    logoutUser,
+    getMe,
+    refreshAccessToken
+};
