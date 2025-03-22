@@ -132,7 +132,7 @@ const loginUser = async (req, res) => {
     */
 
     const { username, email, password } = req.body;
-    if (!username || !email) {
+    if (!(username || email)) {
         return res.status(400).json({
             success: false,
             message: `username or email required`,
@@ -254,5 +254,6 @@ const getMe = async (req, res) => {
         });
     }
 };
+
 
 export { registerUser, verifyUser, loginUser, logoutUser, getMe };
