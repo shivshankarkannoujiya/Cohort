@@ -1,6 +1,6 @@
 const http = require("http");
 
-function miniExpress() {
+function cohortJS() {
 
     const routes = {
         GET: {},
@@ -39,7 +39,7 @@ function miniExpress() {
         if (req.method === "POST") {
 
             let body = "";
-            req.on("data", (chunk) => {
+            req.on("data", (chunjk) => {
                 body+=chunk
             })
 
@@ -65,7 +65,7 @@ function miniExpress() {
         }
     }
 
-    function listen(port, callback) {
+    function sunoJI(port, callback) {
         const server = http.createServer(handleRequest);
         server.listen(port, callback)
     }
@@ -73,8 +73,8 @@ function miniExpress() {
     return {
         get,
         post,
-        listen
+        sunoJI
     }
 }
 
-module.exports = miniExpress
+module.exports = cohortJS

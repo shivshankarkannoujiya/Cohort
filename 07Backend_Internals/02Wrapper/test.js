@@ -13,7 +13,8 @@ app.post("/data", (req, res) => {
     })
 });
 
-app.listen(port, () => {
+
+app.sunoJI(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
 })
 
