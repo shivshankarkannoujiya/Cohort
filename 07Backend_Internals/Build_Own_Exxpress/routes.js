@@ -1,17 +1,25 @@
+const { URL } = require(`url`);
+
 
 function routes() {
 
     let routes_table = {};
 
     const matchRoutes = function (req) {
-        return routes_table[req.url]
+        const protocol = req.connection.encrypted ? `https` : `http`;
+        const parsedUrl = new URL(req.url, `${protocol}://${req.headers.host}`);
+        return routes_table[parsedUrl.pathname];
     }
 
     function get(path, handler) {
         routes_table[path] = handler;
     }
 
-    return { get, matchRoutes }
+    function post(path, handler) {
+        routes_table[path] = handler;
+    }
+
+    return { get, post, matchRoutes }
 }
 
 

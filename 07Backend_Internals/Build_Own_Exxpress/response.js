@@ -19,9 +19,11 @@ function response(res) {
     }
 
     res.json = function (data) {
+        const jsonData = JSON.stringify(data);
         res.setHeader(`Content-Type`, `application/json`);
-        res.setHeader(`Content-Length`, Buffer.byteLength(data));
-        res.end(JSON.stringify(data))
+        res.setHeader(`Content-Length`, Buffer.byteLength(jsonData));
+        res.end(jsonData);
+        return res;
     }
 
     return res;
