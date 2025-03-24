@@ -1,3 +1,4 @@
+```markdown
 # **myExpress**   
 *A lightweight, minimalist Node.js framework inspired by Express.js*  
 
@@ -11,13 +12,14 @@
 
 ## **📦 Installation**  
 ```sh
-git clone https://github.com/yourusername/myExpress.git
+git clone https://github.com/shivshankarkannoujiya/myExpress.git
 cd myExpress
 npm install
+```
 
-## Usage
+## **Usage**
 
-### 1️Import & Initialize `myExpress`  
+### 1. Import & Initialize `myExpress`  
 Create a `server.js` file:  
 
 ```javascript
@@ -42,12 +44,15 @@ app.post('/user', (req, res) => {
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
+```
 
-
-## API Endpoints  
+## **API Endpoints**  
 
 ### GET `/hello`  
 #### **Request:**
 ```sh
 curl "http://localhost:3000/hello"
+```
+```
 
+You can replace `yourusername` in the installation step with your actual GitHub username. The file now includes proper code blocks, headings, and sections for better readability.
