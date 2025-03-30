@@ -342,6 +342,41 @@ const changeCurrentPassword = async (req, res) => {
     }
 };
 
+const updateAccountDetails = async (req, res) => {
+    try {
+        const { username, email } = req.body;
+        if (!username || !email) {
+            return res.status(401).json({
+                success: false,
+                message: "All fields are required",
+            });
+        }
+
+        const user = await User.findByIdAndUpdate(
+            req.user?._id,
+            {
+                $set: {
+                    username,
+                    email,
+                },
+            },
+            { new: true }
+        ).select("-password -refreshToken");
+
+        res.status(200).json({
+            success: true,
+            user,
+            message: "User details updated successfully",
+        });
+    } catch (error) {
+        console.log("Error while updating user details: ", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+};
+
 export {
     registerUser,
     verifyUser,
@@ -350,4 +385,5 @@ export {
     logoutUser,
     refreshAccessToken,
     changeCurrentPassword,
+    updateAccountDetails,
 };
