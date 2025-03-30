@@ -2,6 +2,7 @@ import { User } from "../models/User.model.js";
 import crypto from "crypto";
 import { sendEmail } from "../utils/sendMail.js";
 import { generateAccessAndRefreshToken } from "../utils/generateTokens.js";
+import jwt from "jsonwebtoken";
 
 const registerUser = async (req, res) => {
     const { username, email, password } = req.body;
@@ -184,4 +185,169 @@ const loginUser = async (req, res) => {
     }
 };
 
-export { registerUser, verifyUser, loginUser };
+const getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user?._id).select("-password -refreshToken");
+        console.log("USER: ", user);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "user does not exist",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            user,
+            message: "User profile fetched successfully",
+        });
+    } catch (error) {
+        console.log("Error while fetching user profile: ", error);
+        res.status(500).json({
+            success: false,
+            error: error?.message,
+            message: "Internal server error",
+        });
+    }
+};
+
+const logoutUser = async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(
+            req.user?._id,
+            {
+                $set: {
+                    refreshToken: undefined,
+                },
+            },
+            { new: true }
+        );
+
+        const cookieOptions = {
+            httpOnly: true,
+            secure: true,
+        };
+
+        res.status(200)
+            .clearCookie("accessToken", accessToken, cookieOptions)
+            .clearCookie("refreshToken", refreshToken, cookieOptions)
+            .json({
+                success: true,
+                message: "User logout successfully",
+            });
+    } catch (error) {
+        console.log("ERROR occured during logout user: ", error);
+        res.status(500).json({
+            success: false,
+            error: error?.message,
+            message: "Internal server error",
+        });
+    }
+};
+
+const refreshAccessToken = async (req, res) => {
+    try {
+        const incommingRefreshToken =
+            req.cookies?.refreshToken || req.header("Authorization").replace("Bearer ", "");
+        console.log("REFRESH TOKEN: ", incommingRefreshToken);
+        if (!incommingRefreshToken) {
+            return res.status(404).json({
+                success: false,
+                message: "Unauthorized access",
+            });
+        }
+
+        const decodedToken = jwt.verify(incommingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        const user = await User.findById(decodedToken?.id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Invalid refresh token",
+            });
+        }
+
+        if (incommingRefreshToken !== user?.refreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: "refresh token is expired or used",
+            });
+        }
+
+        const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
+
+        const cookieOptions = {
+            httpOnly: true,
+            secure: true,
+        };
+
+        res.status(200)
+            .cookie("accessToken", accessToken, cookieOptions)
+            .cookie("refreshToken", refreshToken, cookieOptions)
+            .json({
+                success: true,
+                accessToken: accessToken,
+                message: "access token refreshed successfully",
+            });
+    } catch (error) {
+        console.log("Err while refreshing access token: ", error);
+        res.status(500).json({
+            success: false,
+            error: error?.message,
+            message: "Internal server error",
+        });
+    }
+};
+
+const changeCurrentPassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        if (!oldPassword || !newPassword) {
+            return res.status(401).json({
+                success: false,
+                message: "All fields are required",
+            });
+        }
+
+        const user = await User.findById(req.user?._id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User does not exist",
+            });
+        }
+
+        const isPasswordValid = await user.isPasswordCorrect(oldPassword);
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "old password is incorrect",
+            });
+        }
+
+        user.password = newPassword;
+        await user.save({ validateBeforeSave: false });
+
+        res.status(200).json({
+            success: true,
+            message: "password changed successfully",
+        });
+    } catch (error) {
+        console.log("Error occured while changing password: ", error);
+        res.status(500).json({
+            success: false,
+            error: error?.message,
+            message: "Internal server error",
+        });
+    }
+};
+
+export {
+    registerUser,
+    verifyUser,
+    loginUser,
+    getProfile,
+    logoutUser,
+    refreshAccessToken,
+    changeCurrentPassword,
+};
