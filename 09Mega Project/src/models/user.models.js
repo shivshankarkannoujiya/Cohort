@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import { AvailableUserRoles, UserRolesEnum } from "../utils/constants.js";
 
 const userSchema = new mongoose.Schema(
     {
@@ -34,6 +35,13 @@ const userSchema = new mongoose.Schema(
 
         fullname: {
             type: String,
+            required: true,
+        },
+
+        role: {
+            type: String,
+            enum: AvailableUserRoles,
+            default: UserRolesEnum.MEMBER,
             required: true,
         },
 
@@ -120,9 +128,9 @@ userSchema.methods.generateTemporaryToken = async function () {
         .createHash("sha256")
         .update(unHashedToken)
         .digest("hex");
-    const tokenExpiry = Date.now() + (20 * 60 * 1000);
-    
-    return { unHashedToken, hashedToken, tokenExpiry }
+    const tokenExpiry = Date.now() + 20 * 60 * 1000;
+
+    return { unHashedToken, hashedToken, tokenExpiry };
 };
 
 export const User = mongoose.model("User", userSchema);
