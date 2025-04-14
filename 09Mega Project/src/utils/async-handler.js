@@ -1,4 +1,9 @@
-import mongoose from "mongoose";
+function asyncHandler(requestHandler) {
+    return function (req, res, next) {
+        Promise.resolve(requestHandler(req, res, next)).catch(function (err) {
+            next(err);
+        });
+    };
+}
 
-const userSchema = new mongoose.Schema({});
-export const User = mongoose.model("User", userSchema);
+export { asyncHandler };
