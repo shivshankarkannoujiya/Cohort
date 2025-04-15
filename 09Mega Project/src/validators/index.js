@@ -61,6 +61,13 @@ const userResetForgottenPasswordValidator = () => {
     ];
 };
 
+const userUpdateAccountDetailsValidator = () => {
+    return [
+        body("fullname").optional(),
+        body("email").optional().isEmail().withMessage("Email is Invalid"),
+    ];
+};
+
 const userAssignRoleValidator = () => {
     return [
         body("role")
@@ -77,4 +84,5 @@ export {
     userForgotPasswordValidator,
     userResetForgottenPasswordValidator,
     userAssignRoleValidator,
+    userUpdateAccountDetailsValidator
 };

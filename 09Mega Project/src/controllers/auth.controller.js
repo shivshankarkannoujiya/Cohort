@@ -10,6 +10,7 @@ import {
 } from "../utils/mail.js";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const generateAccessAndRefreshToken = async (userId) => {
     try {
@@ -40,9 +41,13 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(409, "User with email or username already exist");
     }
 
+    const avatarLocalPath = req.files?.avatar[0]?.path;
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+
     const user = await User.create({
         username,
         fullname,
+        avatar: avatar?.url || "https://placehold.co/500x400",
         email,
         password,
         role: role || UserRolesEnum.MEMBER,
@@ -401,6 +406,27 @@ const getCurrentUser = asyncHandler(async (req, res) => {
         .json(200, req.user, "Current user fetched successfully");
 });
 
+const updateAccountDetails = asyncHandler(async (req, res) => {
+    const { fullname, email } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                fullname,
+                email,
+            },
+        },
+        { new: true },
+    ).select("-password -refreshToken");
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, user, "Account Details updated Successfully"),
+        );
+});
+
 export {
     registerUser,
     loginUser,
@@ -412,4 +438,5 @@ export {
     resetForgottenPassword,
     changeCurrentPassword,
     getCurrentUser,
+    updateAccountDetails,
 };
