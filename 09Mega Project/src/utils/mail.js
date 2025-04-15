@@ -1,7 +1,7 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
 
-const sendMail = async (options) => {
+const sendEmail = async (options) => {
     const mailGenerator = new Mailgen({
         theme: "default",
         product: {
@@ -75,7 +75,7 @@ const forgotPasswordMailGenContent = (username, passwordResetUrl) => {
 };
 
 export {
-    sendMail,
+    sendEmail,
     emailVerificationMailGenContent,
     forgotPasswordMailGenContent,
 };

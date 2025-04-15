@@ -9,4 +9,9 @@ router
     .route("/register")
     .post(userRegistrationValidator(), validate, registerUser);
 
+/** 
+@description protected Routes
+*/
+
+
 export default router;
