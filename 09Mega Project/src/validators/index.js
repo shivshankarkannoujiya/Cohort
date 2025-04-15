@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { AvailableUserRoles } from "../utils/constants.js";
 
 const userRegistrationValidator = () => {
     return [
@@ -18,17 +19,62 @@ const userRegistrationValidator = () => {
             .withMessage("username cannot exceed 13 char"),
         body("password")
             .trim()
-            .notEmpty("Password is required")
+            .notEmpty()
+            .withMessage("password is required")
             .isLength({ min: 6 })
             .withMessage("Password should be atleast 6 char"),
+        body("role")
+            .optional()
+            .isIn(AvailableUserRoles)
+            .withMessage("Invalid user role"),
     ];
 };
 
 const userLoginValidator = () => {
     return [
-        body("email").isEmail().withMessage("Email is not valid"),
-        body("password").withMessage("Password can not be empty"),
+        body("email").optional().isEmail().withMessage("Email is not valid"),
+        body("username").optional(),
+        body("password").notEmpty().withMessage("Password can not be empty"),
     ];
 };
 
-export { userRegistrationValidator, userLoginValidator };
+const userChangeCurrentPasswordValidator = () => {
+    return [
+        body("oldPassword").notEmpty().withMessage("Old password is required"),
+        body("newPassword").notEmpty().withMessage("New password is required"),
+    ];
+};
+
+const userForgotPasswordValidator = () => {
+    return [
+        body("email")
+            .notEmpty()
+            .withMessage("Email is required")
+            .isEmail()
+            .withMessage("Email is Invalid"),
+    ];
+};
+
+const userResetForgottenPasswordValidator = () => {
+    return [
+        body("newPassword").notEmpty().withMessage("New password is required"),
+    ];
+};
+
+const userAssignRoleValidator = () => {
+    return [
+        body("role")
+            .optional()
+            .isIn(AvailableUserRoles)
+            .withMessage("Invalid user role"),
+    ];
+};
+
+export {
+    userRegistrationValidator,
+    userLoginValidator,
+    userChangeCurrentPasswordValidator,
+    userForgotPasswordValidator,
+    userResetForgottenPasswordValidator,
+    userAssignRoleValidator,
+};
