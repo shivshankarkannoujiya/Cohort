@@ -20,7 +20,7 @@ import {
     userRegistrationValidator,
     userResetForgottenPasswordValidator,
     userUpdateAccountDetailsValidator,
-} from "../validators/index.js";
+} from "../validators/auth.validators.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
 

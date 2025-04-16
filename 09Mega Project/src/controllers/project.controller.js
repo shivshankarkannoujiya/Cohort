@@ -40,14 +40,11 @@ const createProject = asyncHandler(async (req, res) => {
         );
 });
 
-const getProject = asyncHandler(async (req, res) => {
-    const { name } = req.query;
-    if (!name) {
-        throw new ApiError(404, "name is required");
+const getProject = asyncHandler(async (_, res) => {
+    const projects = await Project.find();
+    if (!projects) {
+        throw new ApiError(404, "No project exists");
     }
-
-    const project = await Project.findOne({ name });
-
     return res
         .status(200)
         .json(new ApiResponse(200, project, "Project fetched Successfully"));

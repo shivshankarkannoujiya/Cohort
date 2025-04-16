@@ -68,21 +68,11 @@ const userUpdateAccountDetailsValidator = () => {
     ];
 };
 
-const userAssignRoleValidator = () => {
-    return [
-        body("role")
-            .optional()
-            .isIn(AvailableUserRoles)
-            .withMessage("Invalid user role"),
-    ];
-};
-
 export {
     userRegistrationValidator,
     userLoginValidator,
     userChangeCurrentPasswordValidator,
     userForgotPasswordValidator,
     userResetForgottenPasswordValidator,
-    userAssignRoleValidator,
-    userUpdateAccountDetailsValidator
+    userUpdateAccountDetailsValidator,
 };

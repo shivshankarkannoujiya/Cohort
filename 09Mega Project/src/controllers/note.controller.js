@@ -10,10 +10,6 @@ const createNote = asyncHandler(async (req, res) => {
     const { projectId } = req.params;
     const userId = req.user?._id;
 
-    if (!mongoose.Types.ObjectId.isValid(projectId)) {
-        throw new ApiError(400, "Invalid proejct Id");
-    }
-
     const projectNote = await ProjectNote.create({
         project: projectId,
         createdBy: userId,
@@ -41,10 +37,6 @@ const createNote = asyncHandler(async (req, res) => {
 
 const getNotes = asyncHandler(async (req, res) => {
     const { projectId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(projectId)) {
-        throw new ApiError(400, "Invalid project Id");
-    }
 
     const projectExist = await Project.findById(projectId);
     if (!projectExist) {
