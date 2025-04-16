@@ -106,25 +106,25 @@ userSchema.methods.generateRefreshToken = function () {
             id: this._id,
         },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: REFRESH_TOKEN_EXPIRY },
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRY },
     );
 };
 
 userSchema.methods.generateTemporaryToken = async function () {
-    const unHashedToken = await crypto.randomBytes(32).toString("hex");
+    const unHashedToken = crypto.randomBytes(32).toString("hex");
 
-    /*
+    /** 
+        @description
         1. I want to put `hashedToken in DB`
         2. `unHashedToken`: User ko denge
         3. Jab Value ayega mere pass then compare kr lenge
-    
     `
         - DB ke kya data kaise rakhte hai,  unke upar `Compliance ` aate hai
         - Sometimes `username | email | firstname | lastname | telephone | creditCard` encrypt rkhna pade
     `
     */
 
-    const hashedToken = await crypto
+    const hashedToken = crypto
         .createHash("sha256")
         .update(unHashedToken)
         .digest("hex");

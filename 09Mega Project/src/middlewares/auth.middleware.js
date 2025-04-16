@@ -25,8 +25,14 @@ const isLoggedIn = asyncHandler(async (req, _, next) => {
         req.user = user;
         next();
     } catch (error) {
-        console.log("ERR: ", error);
-        throw new ApiError(401, error?.message || "Invalid access token");
+        if (error.name === "TokenExpiredError") {
+            throw new ApiError(401, "Access token expired");
+        } else if (error.name === "JsonWebTokenError") {
+            throw new ApiError(401, "Invalid access token");
+        } else {
+            console.log("ERR: ", error);
+            throw new ApiError(401, error?.message || "Invalid access token");
+        }
     }
 });
 

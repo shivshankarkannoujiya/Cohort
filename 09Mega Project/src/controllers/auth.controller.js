@@ -11,6 +11,7 @@ import {
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import path from "path";
 
 const generateAccessAndRefreshToken = async (userId) => {
     try {
@@ -19,7 +20,10 @@ const generateAccessAndRefreshToken = async (userId) => {
         const accessToken = user.generateAccessToken();
         const refreshToken = user.generateRefreshToken();
 
-        // attach refresh token to the user document to avoid refreshing the access token with multiple refresh tokens
+        /**
+            @description 
+            attach refresh token to the user document to avoid refreshing the access token with multiple refresh tokens
+         */
         user.refreshToken = refreshToken;
         await user.save({ validateBeforeSave: false });
 
@@ -41,22 +45,26 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(409, "User with email or username already exist");
     }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path;
+    const avatarLocalPath = path.resolve(req.files?.avatar[0]?.path);
     const avatar = await uploadOnCloudinary(avatarLocalPath);
 
     const user = await User.create({
         username,
         fullname,
-        avatar: avatar?.url || "https://placehold.co/500x400",
+        avatar: {
+            url: avatar.url,
+            localPath: avatarLocalPath,
+        },
         email,
         password,
         role: role || UserRolesEnum.MEMBER,
     });
 
     const { unHashedToken, hashedToken, tokenExpiry } =
-        user.generateTemporaryToken();
+        await user.generateTemporaryToken();
 
-    /*
+    /** 
+        @description
         - assign hashedToken and tokenExpiry in DB till user clicks on email  verification link
         -The email verification is handled by {@link verifyEmail}
    */
@@ -108,9 +116,9 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User does not exist");
     }
 
-    if (!user.isEmailVerified) {
-        throw new ApiError(400, "User is not verified");
-    }
+    // if (!user.isEmailVerified) {
+    //     throw new ApiError(400, "User is not verified");
+    // }
 
     const isPasswordValid = await user.isPasswordCorrect(password);
     if (!isPasswordValid) {
@@ -168,8 +176,8 @@ const logOutUser = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .clearCookie("accessToken", accessToken, options)
-        .clearCookie("refreshToken", refreshToken, options)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logged out"));
 });
 
@@ -235,7 +243,7 @@ const resendVerificationEmail = asyncHandler(async (req, res) => {
     }
 
     const { unHashedToken, hashedToken, tokenExpiry } =
-        user.generateTemporaryToken();
+        await user.generateTemporaryToken();
 
     user.emailVerificationToken = hashedToken;
     user.emailVerificationExpiry = tokenExpiry;
@@ -322,7 +330,7 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
 
     // Generate a temporary token
     const { unHashedToken, hashedToken, tokenExpiry } =
-        user.generateTemporaryToken();
+        await user.generateTemporaryToken();
 
     user.forgotPasswordToken = hashedToken;
     user.forgotPasswordExpiry = tokenExpiry;
@@ -335,7 +343,8 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
         mailGenContent: forgotPasswordMailGenContent(
             user?.username,
 
-            /*
+            /** 
+                @description
                 -! NOTE: Following link should be the link of the frontend page responsible to request password reset
                 - Frontend will send the below token with the new password in the request body to the backend reset password endpoint
             */
@@ -345,7 +354,13 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(200, {}, "Password reset mail has been sent on your mail id");
+        .json(
+            new ApiResponse(
+                200,
+                {},
+                "Password reset mail has been sent on your mail id",
+            ),
+        );
 });
 
 const resetForgottenPassword = asyncHandler(async (req, res) => {
@@ -353,8 +368,8 @@ const resetForgottenPassword = asyncHandler(async (req, res) => {
     const { newPassword } = req.body;
 
     // Create a hash of the incoming reset token
-    const hashedToken = await crypto
-        .createHash("256")
+    const hashedToken = crypto
+        .createHash("sha256")
         .update(resetToken)
         .digest("hex");
 
@@ -401,9 +416,19 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    if (!userId) {
+        throw new ApiError(401, "userId is required");
+    }
+
+    const user = await User.findById(userId).select("-password -refreshToken");
+    if (!user) {
+        throw new ApiError(404, "User does not exist");
+    }
+
     return res
         .status(200)
-        .json(200, req.user, "Current user fetched successfully");
+        .json(new ApiResponse(200, user, "Current user fetched successfully"));
 });
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
