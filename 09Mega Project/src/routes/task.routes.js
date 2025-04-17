@@ -7,7 +7,7 @@ import {
     getTaskById,
     getTasks,
     updateTask,
-} from "../controllers/task.controller";
+} from "../controllers/task.controller.js";
 import {
     createTaskValidator,
     deleteTaskValidator,

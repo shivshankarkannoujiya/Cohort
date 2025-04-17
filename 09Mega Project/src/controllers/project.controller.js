@@ -47,7 +47,13 @@ const getProject = asyncHandler(async (_, res) => {
     }
     return res
         .status(200)
-        .json(new ApiResponse(200, project, "Project fetched Successfully"));
+        .json(
+            new ApiResponse(
+                200,
+                { projects: projects },
+                "Project fetched Successfully",
+            ),
+        );
 });
 
 const getProjectByID = asyncHandler(async (req, res) => {
@@ -248,13 +254,19 @@ const updateMemberRole = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(200, populatedMember, "Member role updated Successfully");
+        .json(
+            new ApiResponse(
+                200,
+                populatedMember,
+                "Member role updated Successfully",
+            ),
+        );
 });
 
 const deleteMember = asyncHandler(async (req, res) => {
-    const { userId, projectId } = req.params;
+    const { projectId, userId } = req.params;
 
-    const deletedProjectMember = await ProjectMember.findByIdAndDelete({
+    const deletedProjectMember = await ProjectMember.findOneAndDelete({
         user: userId,
         project: projectId,
     });

@@ -12,7 +12,7 @@ import {
     updateMemberRole,
     updateProject,
     updateProjectMembers,
-} from "../controllers/project.controller";
+} from "../controllers/project.controller.js";
 import {
     addMemberToProjectValidator,
     createdProjectValidator,
@@ -31,10 +31,10 @@ const router = Router();
  @description Protected Routes
  */
 router
-    .route("/create-project")
+    .route("/create")
     .post(isLoggedIn, createdProjectValidator(), validate, createProject);
 
-router.route("/project").get(isLoggedIn, getProject);
+router.route("/projects").get(isLoggedIn, getProject);
 
 router
     .route("/getProject/:id")
@@ -59,7 +59,7 @@ router
 
 router
     .route("/project-members/:projectId")
-    .post(
+    .get(
         isLoggedIn,
         getProjectMembersValidator(),
         validate,
@@ -67,7 +67,7 @@ router
     );
 
 router
-    .route("/update-project-member")
+    .route("/update-member")
     .post(
         isLoggedIn,
         updateProjectMembersValidator(),
@@ -76,11 +76,11 @@ router
     );
 
 router
-    .route("/update-member-role")
+    .route("/update-member-role/:projectId/:userId")
     .post(isLoggedIn, updateMemberRoleValidator(), validate, updateMemberRole);
 
 router
-    .route("/deleteMember/:userId/:projectId")
+    .route("/deleteMember/:projectId/:userId")
     .delete(isLoggedIn, deleteMemberValidator(), validate, deleteMember);
 
 export default router;
