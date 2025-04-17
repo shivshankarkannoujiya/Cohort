@@ -4,7 +4,7 @@ import { User } from "../models/user.models.js";
 import { asyncHandler } from "../utils/async-handler.js";
 import { ApiError } from "../utils/api-error.js";
 import { ApiResponse } from "../utils/api-response.js";
-import { AvailableUserRoles } from "../utils/constants.js";
+import { AvailableUserRoles, UserRolesEnum } from "../utils/constants.js";
 
 const createProject = asyncHandler(async (req, res) => {
     const { name, description } = req.body;
@@ -77,13 +77,13 @@ const getProjectByID = asyncHandler(async (req, res) => {
 
 const updateProject = asyncHandler(async (req, res) => {
     const { name, description } = req.body;
-    const { id } = req.params;
-    if (!id) {
+    const { projectId } = req.params;
+    if (!projectId) {
         throw new ApiError(400, "Id is required");
     }
 
     const updatedProject = await Project.findByIdAndUpdate(
-        id,
+        projectId,
         {
             $set: {
                 name,
@@ -109,8 +109,8 @@ const updateProject = asyncHandler(async (req, res) => {
 });
 
 const deleteProject = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const deletedProject = await Project.findByIdAndDelete(id);
+    const { projectId } = req.params;
+    const deletedProject = await Project.findByIdAndDelete(projectId);
     if (!deletedProject) {
         throw new ApiError(404, "Project not found");
     }
@@ -123,32 +123,33 @@ const deleteProject = asyncHandler(async (req, res) => {
 });
 
 const addMemberToProject = asyncHandler(async (req, res) => {
-    const { projectId, userId } = req.body;
+    const { projectId, email, role } = req.body;
 
     const project = await Project.findById(projectId);
     if (!project) {
         throw new ApiError(404, "Project not found");
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findOne({ email });
     if (!user) {
-        throw new ApiError(404, "user not found");
+        throw new ApiError(404, "User not found");
     }
 
-    // TODO: Check if user is already a member
+    //Check if user is already a member
     const existingProjectMember = await ProjectMember.findOne({
-        user: userId,
+        user: user._id,
         project: projectId,
     });
 
     if (existingProjectMember) {
-        throw new ApiError(400, "user is already mamber of this project");
+        throw new ApiError(400, "User is already mamber of this project");
     }
 
-    // TODO: Create a new entry in ProjectMember
+    //Create a new entry in ProjectMember
     const newMember = await ProjectMember.create({
-        user: userId,
+        user: user._id,
         project: projectId,
+        role: role || UserRolesEnum.MEMBER,
     });
 
     return res
@@ -176,7 +177,7 @@ const getProjectMembers = asyncHandler(async (req, res) => {
     }
 
     const members = await ProjectMember.find({ project: projectId })
-        .populate("user", "fullname, email")
+        .populate("user", "fullname email")
         .select("-project");
 
     return res

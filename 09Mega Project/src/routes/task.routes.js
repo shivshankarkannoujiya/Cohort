@@ -1,6 +1,12 @@
 import { Router } from "express";
-import { isLoggedIn } from "../middlewares/auth.middleware.js";
+import {
+    isLoggedIn,
+    isMemberOfProject,
+    isProjectAdminOrAdmin,
+} from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validator.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
+
 import {
     createTask,
     deleteTask,
@@ -21,22 +27,50 @@ const router = Router();
     @description Task Routes
  */
 
-router
-    .route("/createtask")
-    .post(isLoggedIn, createTaskValidator(), validate, createTask);
+router.route("/createtask").post(
+    isLoggedIn,
+    upload.fields([
+        {
+            name: "attachment",
+            maxCount: 10,
+        },
+    ]),
+    createTaskValidator(),
+    validate,
+    isProjectAdminOrAdmin,
+    createTask,
+);
 
-router.route("/tasks").get(isLoggedIn, getTasks);
+router.route("/tasks").get(isLoggedIn, isMemberOfProject, getTasks);
 
 router
     .route("/tasksbyId/:taskId")
-    .get(isLoggedIn, getTaskByIdValidator(), validate, getTaskById);
+    .get(
+        isLoggedIn,
+        getTaskByIdValidator(),
+        validate,
+        isMemberOfProject,
+        getTaskById,
+    );
 
 router
     .route("/updatetask/:taskId")
-    .put(isLoggedIn, updateTaskValidator(), validate, updateTask);
+    .put(
+        isLoggedIn,
+        updateTaskValidator(),
+        validate,
+        isProjectAdminOrAdmin,
+        updateTask,
+    );
 
 router
     .route("/deletetask/:taskId")
-    .delete(isLoggedIn, deleteTaskValidator(), validate, deleteTask);
+    .delete(
+        isLoggedIn,
+        deleteTaskValidator(),
+        validate,
+        isProjectAdminOrAdmin,
+        deleteTask,
+    );
 
 export default router;

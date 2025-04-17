@@ -57,11 +57,15 @@ const addMemberToProjectValidator = () => {
             .withMessage("project id is required")
             .isMongoId()
             .withMessage("Invalid project Id"),
-        body("userId")
+        body("email")
             .notEmpty()
-            .withMessage("user id is required")
-            .isMongoId()
-            .withMessage("Invalid user id"),
+            .withMessage("email is required")
+            .isEmail()
+            .withMessage("Email is Invalid"),
+        body("role")
+            .optional()
+            .isIn(AvailableUserRoles)
+            .withMessage("Invalid role"),
     ];
 };
 

@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { isLoggedIn } from "../middlewares/auth.middleware.js";
+import {
+    isLoggedIn,
+    isMemberOfProject,
+    isProjectAdminOrAdmin,
+} from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
     createNote,
@@ -20,22 +24,52 @@ const router = Router();
 
 router
     .route("/createnote/:projectId")
-    .post(isLoggedIn, createNoteValidator(), validate, createNote);
+    .post(
+        isLoggedIn,
+        createNoteValidator(),
+        validate,
+        isProjectAdminOrAdmin,
+        createNote,
+    );
 
 router
     .route("/notes/:projectId")
-    .get(isLoggedIn, getNoteValidators(), validate, getNotes);
+    .get(
+        isLoggedIn,
+        getNoteValidators(),
+        validate,
+        isMemberOfProject,
+        getNotes,
+    );
 
 router
     .route("/note/:noteId")
-    .get(isLoggedIn, getNoteByIdValidator(), validate, getNoteById);
+    .get(
+        isLoggedIn,
+        getNoteByIdValidator(),
+        validate,
+        isMemberOfProject,
+        getNoteById,
+    );
 
 router
     .route("/updatenote/:noteId")
-    .put(isLoggedIn, updateNoteValidator(), validate, updateNote);
+    .put(
+        isLoggedIn,
+        updateNoteValidator(),
+        validate,
+        isProjectAdminOrAdmin,
+        updateNote,
+    );
 
 router
     .route("/deletenote/:noteId")
-    .delete(isLoggedIn, deletedNoteValidator(), validate, deleteNote);
+    .delete(
+        isLoggedIn,
+        deletedNoteValidator(),
+        validate,
+        isProjectAdminOrAdmin,
+        deleteNote,
+    );
 
 export default router;

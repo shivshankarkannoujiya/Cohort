@@ -4,6 +4,8 @@ import { ApiError } from "../utils/api-error.js";
 import { ApiResponse } from "../utils/api-response.js";
 import { asyncHandler } from "../utils/async-handler.js";
 import { AvailableTaskStatuses, TaskStatusEnum } from "../utils/constants.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import path from "path";
 
 const createTask = asyncHandler(async (req, res) => {
     const { title, description, project, assignedTo, assignedBy, status } =
@@ -14,7 +16,9 @@ const createTask = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Task with this title already exist");
     }
 
-    // TODO: Handle attatchments
+    const attachmentsLocalPath = path.resolve(req.files?.attachment[0]?.path);
+    const attachment = await uploadOnCloudinary(attachmentsLocalPath);
+
     const newTask = await Task.create({
         title,
         description,
@@ -22,6 +26,13 @@ const createTask = asyncHandler(async (req, res) => {
         assignedTo,
         assignedBy,
         status: status || TaskStatusEnum.TODO,
+        attatchments: [
+            {
+                url: attachment.secure_url,
+                memeType: attachment.memeType,
+                size: attachment.size,
+            },
+        ],
     });
 
     const createdTask = await Task.findById(newTask._id)

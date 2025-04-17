@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { isLoggedIn } from "../middlewares/auth.middleware.js";
+import {
+    isLoggedIn,
+    isMemberOfProject,
+} from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validator.middleware.js";
 
 import {
@@ -21,14 +24,32 @@ const router = Router();
 
 router
     .route("/createsubtask")
-    .post(isLoggedIn, createSubTaskValidator(), validate, createSubTask);
+    .post(
+        isLoggedIn,
+        createSubTaskValidator(),
+        validate,
+        isMemberOfProject,
+        createSubTask,
+    );
 
 router
     .route("/updatesubtask/:subTaskId")
-    .put(isLoggedIn, updateSubTaskValidator(), validate, updateSubTask);
+    .put(
+        isLoggedIn,
+        updateSubTaskValidator(),
+        validate,
+        isMemberOfProject,
+        updateSubTask,
+    );
 
 router
     .route("/deletesubtask/:subTaskId")
-    .delete(isLoggedIn, deleteSubTaskValidator(), validate, deleteSubTask);
+    .delete(
+        isLoggedIn,
+        deleteSubTaskValidator(),
+        validate,
+        isMemberOfProject,
+        deleteSubTask,
+    );
 
 export default router;

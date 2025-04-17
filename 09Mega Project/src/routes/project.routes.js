@@ -1,6 +1,12 @@
 import { Router } from "express";
-import { isLoggedIn } from "../middlewares/auth.middleware.js";
+import {
+    isAdminOfProject,
+    isLoggedIn,
+    isMemberOfProject,
+    isProjectAdminOrAdmin,
+} from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validator.middleware.js";
+
 import {
     addMemberToProject,
     createProject,
@@ -28,7 +34,7 @@ import {
 const router = Router();
 
 /**
- @description Protected Routes
+ @description Project Routes
  */
 router
     .route("/create")
@@ -38,15 +44,33 @@ router.route("/projects").get(isLoggedIn, getProject);
 
 router
     .route("/getProject/:id")
-    .get(isLoggedIn, getProjectByIDValidator(), validate, getProjectByID);
+    .get(
+        isLoggedIn,
+        getProjectByIDValidator(),
+        validate,
+        isMemberOfProject,
+        getProjectByID,
+    );
 
 router
-    .route("/update-project/:id")
-    .put(isLoggedIn, updateProjectValidator(), validate, updateProject);
+    .route("/update-project/:projectId")
+    .put(
+        isLoggedIn,
+        updateProjectValidator(),
+        validate,
+        isProjectAdminOrAdmin,
+        updateProject,
+    );
 
 router
-    .route("/delete-project/:id")
-    .delete(isLoggedIn, deleteProjectValidator(), validate, deleteProject);
+    .route("/delete-project/:projectId")
+    .delete(
+        isLoggedIn,
+        deleteProjectValidator(),
+        validate,
+        isAdminOfProject,
+        deleteProject,
+    );
 
 router
     .route("/addMember")
@@ -54,6 +78,7 @@ router
         isLoggedIn,
         addMemberToProjectValidator(),
         validate,
+        isAdminOfProject,
         addMemberToProject,
     );
 
@@ -63,6 +88,7 @@ router
         isLoggedIn,
         getProjectMembersValidator(),
         validate,
+        isProjectAdminOrAdmin,
         getProjectMembers,
     );
 
@@ -72,15 +98,28 @@ router
         isLoggedIn,
         updateProjectMembersValidator(),
         validate,
+        isAdminOfProject,
         updateProjectMembers,
     );
 
 router
     .route("/update-member-role/:projectId/:userId")
-    .post(isLoggedIn, updateMemberRoleValidator(), validate, updateMemberRole);
+    .post(
+        isLoggedIn,
+        updateMemberRoleValidator(),
+        validate,
+        isAdminOfProject,
+        updateMemberRole,
+    );
 
 router
     .route("/deleteMember/:projectId/:userId")
-    .delete(isLoggedIn, deleteMemberValidator(), validate, deleteMember);
+    .delete(
+        isLoggedIn,
+        deleteMemberValidator(),
+        validate,
+        isAdminOfProject,
+        deleteMember,
+    );
 
 export default router;
