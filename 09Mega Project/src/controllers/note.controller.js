@@ -73,12 +73,13 @@ const getNoteById = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(ApiResponse(200, note, "note fetched Successfully"));
+        .json(new ApiResponse(200, note, "note fetched Successfully"));
 });
 
 const updateNote = asyncHandler(async (req, res) => {
     const { content } = req.body;
     const { noteId } = req.params;
+    
     if (!noteId) {
         throw new ApiError(401, "note Id is required");
     }
