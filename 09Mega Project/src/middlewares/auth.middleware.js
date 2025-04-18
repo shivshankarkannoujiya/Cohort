@@ -58,7 +58,7 @@ const isAdminOfProject = asyncHandler(async (req, _, next) => {
 });
 
 const isProjectAdminOrAdmin = asyncHandler(async (req, _, next) => {
-    const projectId = req.body || req.params;
+    const { projectId } = req.body || req.params;
     const userId = req.user?._id;
 
     if (!projectId) {
