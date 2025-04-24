@@ -1,4 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Promise } from "mongoose";
+import { Task } from "./task.models.js";
+import { ProjectNote } from "./note.models.js";
+import { ProjectMember } from "./projectmember.models.js";
 
 const projectSchema = new mongoose.Schema(
     {
@@ -20,6 +23,20 @@ const projectSchema = new mongoose.Schema(
         },
     },
     { timestamps: true },
+);
+
+projectSchema.pre(
+    "deleteOne",
+    { document: true, query: true },
+    async function (next) {
+        const projectId = this._id;
+        await Promise.all([
+            Task.deleteMany({ project: projectId }),
+            ProjectMember.deleteMany({ project: projectId }),
+            ProjectNote.deleteMany({ project: projectId }),
+        ]);
+        next();
+    },
 );
 
 export const Project = mongoose.model("Project", projectSchema);
