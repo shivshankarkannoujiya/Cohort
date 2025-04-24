@@ -78,3 +78,62 @@
 
 // TODO: DEEP COPY
 
+// let p1 = {
+//   fname: "Ajay",
+//   lname: "Rana",
+//   address: {
+//     h: 1,
+//     s: 1,
+//   },
+// };
+
+// let p2 = {
+//   ...p1,
+//   address: {
+//     ...p1.address,
+//   },
+// };
+
+/**
+ * @description
+ * There will be problem if,
+ * One more nested object present inside the: address
+ */
+
+/**
+ * @description
+ * TODO:
+ * Convert the p1_object => String
+ * Store into => p1_object_string
+ * Again convert the `p1_object_string` into Object
+ * Store into p2
+ */
+
+let p1 = {
+  fname: "Ajay",
+  lname: "Rana",
+  address: {
+    h: 1,
+    s: 1,
+  },
+};
+
+// const p1_object_string = JSON.stringify(p1);
+// console.log(p1_object_string);
+
+// const p2 = JSON.parse(p1_object_string);
+// console.log(p2);
+
+function createDeepCopyOfObject(obj) {
+  const convert_obj_string = JSON.stringify(obj);
+  const deepCopiedObject = JSON.parse(convert_obj_string);
+  return deepCopiedObject;
+}
+
+
+// const p2 = createDeepCopyOfObject(p1)
+// p2.address.h = 'HACKED'
+// console.log(p1);
+// console.log(p2);
+
+
