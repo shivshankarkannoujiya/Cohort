@@ -18,6 +18,25 @@ if (!Array.prototype.myforEach) {
   };
 }
 
-arr.myforEach(function (value, index) {
-  console.log(`Value at index ${index} is: ${value}`);
-});
+// Error: .map function does not exist on arr variable
+/**
+ * @description
+ * Return: New Array
+ * modify: Do not modify original array
+ * input: callbackFn
+ *        callbackFn parameters: value, index
+ */
+
+if (!Array.prototype.myMap) {
+  Array.prototype.myMap = function (callbackFn) {
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+      const returnValueOfEachElement = callbackFn(this[i], i);
+      result.push(returnValueOfEachElement);
+    }
+    return result;
+  };
+}
+
+const doubledArray = arr.myMap((e) => e * 2);
+console.log(doubledArray);
