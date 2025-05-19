@@ -1,4 +1,22 @@
-const App = () => { 
+// TODO: React - 18
+// const App = () => {
+
+//     return React.createElement(
+//         "div",
+//         {},
+//         React.createElement(
+//             "h1",
+//             {className: "test"},
+//             "Chai Chill and react - React - 18"
+//         )
+//     )
+// }
+
+// TODO: React - 19
+import React from "https://esm.sh/react@19.1.0";
+import ReactDOM from "https://esm.sh/react-dom@19.1.0/client";
+
+const App = () => {
 
     return React.createElement(
         "div",
