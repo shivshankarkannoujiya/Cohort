@@ -1,0 +1,45 @@
+# Ignore build output
+/build
+/dist
+
+# Ignore node dependencies
+/node_modules
+
+# Ignore test coverage reports
+/coverage
+
+# Ignore environment files
+.env
+.env.* 
+
+# Ignore lock files (optional if you don’t want Prettier touching them)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore configuration overrides
+*.config.js
+*.config.cjs
+*.config.ts
+
+# Ignore version control
+.git
+.gitignore
+
+# Ignore public static assets
+/public
+
+# Ignore compiled output
+*.min.js
+*.bundle.js
+
+# Ignore custom directories (optional)
+logs
+tmp
+.cache
+
+# Ignore snapshots
+*.snap
+
+# Ignore generated Prisma client (if using Prisma)
+prisma/generated
