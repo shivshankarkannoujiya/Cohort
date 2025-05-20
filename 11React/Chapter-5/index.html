@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter-5</title>
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">This is a Classic root div</div>
+
+    <script type="text/babel">
+        const Chai = ({name}) => (
+            <div>
+                <h2>{name}</h2>    
+            </div>
+        )
+
+        const App = () => (
+            <div>
+                <h1>Chai Variation</h1>
+                <Chai name="Ginger Tea"/>
+            </div>
+        )
+
+        const container = document.getElementById("root")
+        const root = ReactDOM.createRoot(container);
+        root.render(<App/>)
+    </script>
+
+</body>
+</html>
