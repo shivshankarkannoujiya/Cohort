@@ -1,5 +1,6 @@
 import express from "express";
-import { chaiTypes } from "./data.js";
+import { chaiTypes, specialChai } from "./data.js";
+
 
 const app = express();
 app.use(express.json())
@@ -25,5 +26,16 @@ app.get("/api/allchai", (_, res) => {
     }
 })
 
+app.get("/api/special-chai", (_, res) => {
+    try {
+        res.status(200).send(specialChai);
+    } catch (error) {
+        console.error("Error while fetching special chai: ", error);
+        res.status(500).json({
+            success: false,
+            error: error?.message ?? "Something went wrong while fetching special chai"
+        })
+    }
+})
 
 export default app;

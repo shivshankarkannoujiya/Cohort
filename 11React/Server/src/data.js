@@ -55,3 +55,61 @@ export const chaiTypes = [
     }
   }
 ]
+
+export const specialChai = [
+  {
+    "id": "specialchai001",
+    "name": "Saffron Cardamom Bliss",
+    "category": "Premium Spiced",
+    "description": "An exquisite blend of high-grade saffron threads, aromatic green cardamom, and premium black tea, offering a luxurious and fragrant experience.",
+    "image": "https://placehold.co/150x150/DAA520/FFFFFF?text=Saffron+Chai",
+    "sizes": {
+      "small": 120,
+      "large": 180
+    }
+  },
+  {
+    "id": "specialchai002",
+    "name": "Rose Pistachio Infusion",
+    "category": "Floral & Nutty",
+    "description": "A delicate and delightful chai with the subtle sweetness of rose petals and the rich, earthy notes of crushed pistachios, a truly unique indulgence.",
+    "image": "https://placehold.co/150x150/FF69B4/FFFFFF?text=Rose+Pistachio+Chai",
+    "sizes": {
+      "small": 110,
+      "large": 170
+    }
+  },
+  {
+    "id": "specialchai003",
+    "name": "Smoked Earl Grey Chai",
+    "category": "Fusion & Aromatic",
+    "description": "A bold and sophisticated chai blending classic Earl Grey (bergamot) with a hint of smoky lapsang souchong tea, creating a surprisingly captivating aroma.",
+    "image": "https://placehold.co/150x150/8B4513/FFFFFF?text=Smoked+Earl+Grey",
+    "sizes": {
+      "small": 95,
+      "large": 150
+    }
+  },
+  {
+    "id": "specialchai004",
+    "name": "Vegan Coconut Spice",
+    "category": "Plant-Based",
+    "description": "A creamy and flavourful plant-based chai made with coconut milk, infused with a medley of traditional chai spices for a guilt-free pleasure.",
+    "image": "https://placehold.co/150x150/008080/FFFFFF?text=Vegan+Coconut",
+    "sizes": {
+      "small": 100,
+      "large": 160
+    }
+  },
+  {
+    "id": "specialchai005",
+    "name": "Spiced Fig & Honey",
+    "category": "Sweet & Exotic",
+    "description": "A warm and inviting chai featuring the natural sweetness of dried figs, balanced with a touch of honey and a gentle blend of warming spices.",
+    "image": "https://placehold.co/150x150/A0522D/FFFFFF?text=Fig+Honey+Chai",
+    "sizes": {
+      "small": 105,
+      "large": 165
+    }
+  }
+]
