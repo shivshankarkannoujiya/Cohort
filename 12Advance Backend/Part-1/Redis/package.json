@@ -1,0 +1,28 @@
+{
+  "name": "redis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p .",
+    "start": "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \" pnpm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "@types/node": "^24.6.1",
+    "tsc-watch": "^7.2.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "axios": "^1.12.2",
+    "express": "^5.1.0",
+    "ioredis": "^5.8.0"
+  }
+}
