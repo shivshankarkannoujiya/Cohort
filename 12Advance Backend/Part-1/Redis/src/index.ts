@@ -3,8 +3,7 @@ import type { Application, Request, Response } from "express";
 import axios from "axios";
 import { Redis } from "ioredis";
 
-
-// TODO: Create new Instance of Redis 
+// TODO: Create new Instance of Redis
 const redis = new Redis({
   host: "localhost",
   port: Number(6379),
@@ -13,16 +12,32 @@ const redis = new Redis({
 const app: Application = express();
 const PORT: number = Number(process.env.PORT ?? 8000);
 
+// TODO: basic rate-limiter
+app.use(async function (req, res, next) {
+  const userId = 1 // get dynamically
+  const key = `rate-limit/${userId}`;
+  const value = await redis.get(key);
+
+  if (value === null) {
+    redis.set(key, 0);
+    redis.expire(key, 60);
+  }
+
+  if (Number(value) > 10) {
+    return res.status(429).json({ message: "To many requests" });
+  }
+
+  redis.incr(key);
+  next();
+});
 
 app.get("/", (_: Request, res: Response) => {
   return res.status(200).json({ success: true });
 });
 
 app.get("/books/total", async (_: Request, res: Response) => {
-
-
   // TODO: check in cache
-  const cachedValue = await redis.get("totalPageValue")
+  const cachedValue = await redis.get("totalPageValue");
   if (cachedValue) {
     console.log(`CACHE HIT....`);
     return res.status(200).json({
@@ -45,7 +60,7 @@ app.get("/books/total", async (_: Request, res: Response) => {
     );
 
     // TODO: set the cache
-    await redis.set("totalPageValue", totalPageCount)
+    await redis.set("totalPageValue", totalPageCount);
 
     console.log(`CACHE MISSED...`);
     return res.status(200).json({
