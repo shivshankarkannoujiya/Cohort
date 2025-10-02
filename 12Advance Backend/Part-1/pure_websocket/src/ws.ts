@@ -1,4 +1,4 @@
-import { WebSocketServer, WebSocket } from 'ws';
+import  { WebSocketServer, WebSocket } from 'ws';
 import type { Server as HttpServer } from 'http';
 
 type initWebSocketFn = (server: HttpServer) => WebSocketServer;
@@ -19,6 +19,7 @@ const initWebSocket: initWebSocketFn = (server) => {
                 }
             });
         });
+        ws.send(`Sending message to CLIENT from SERVER`)
         console.log(`CLIENT ${cleintCount++} CONNECTED`);
         console.log(`Hello, From webscoket server`);
     });
